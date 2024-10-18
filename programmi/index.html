@@ -98,6 +98,54 @@
                 display: none;
             }
         }
+        /* Stili per la sezione Playlist */
+.playlist-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.playlist-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    height: 300px; /* Altezza fissa per i quadrati */
+}
+
+.playlist-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantiene le proporzioni dell'immagine */
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6); /* Sfumatura nera */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.playlist-item:hover .overlay {
+    opacity: 1; /* Mostra l'overlay al passaggio del mouse */
+}
+
+.playlist-item h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.playlist-item p {
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
     </style>
 </head>
 <body>
@@ -112,14 +160,38 @@
         </div>
     </header>
 
-    <!-- Video in evidenza -->
-    <div class="featured-video" id="featuredVideoContainer"></div>
+<!-- Sezione Playlist -->
+<div class="playlist-container" id="playlistContainer">
+    <div class="playlist-item">
+        <img src="URL_IMMAGINE_1" alt="Playlist 1">
+        <div class="overlay">
+            <h3>Nome Playlist 1</h3>
+            <p>Data: 01/01/2024</p>
+        </div>
+    </div>
+    <div class="playlist-item">
+        <img src="URL_IMMAGINE_2" alt="Playlist 2">
+        <div class="overlay">
+            <h3>Nome Playlist 2</h3>
+            <p>Data: 02/01/2024</p>
+        </div>
+    </div>
+    <div class="playlist-item">
+        <img src="URL_IMMAGINE_3" alt="Playlist 3">
+        <div class="overlay">
+            <h3>Nome Playlist 3</h3>
+            <p>Data: 03/01/2024</p>
+        </div>
+    </div>
+    <div class="playlist-item">
+        <img src="URL_IMMAGINE_4" alt="Playlist 4">
+        <div class="overlay">
+            <h3>Nome Playlist 4</h3>
+            <p>Data: 04/01/2024</p>
+        </div>
+    </div>
+</div>
 
-    <!-- Selezione video -->
-    <div class="video-selection" id="videoContainer"></div>
-
-    <!-- Selezione playlist -->
-    <div class="playlist-selection" id="playlistContainer"></div>
 <script>
     const API_KEY = 'AIzaSyDmtuEqJYNjXgJ-xO0UEZcJf0UXHmKjB4o'; // Chiave API aggiornata
     const CHANNEL_ID = 'UCpw7_ePKCUF28v1JypU0RNw'; // ID del canale

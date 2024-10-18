@@ -88,6 +88,7 @@
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
+            cursor: pointer; /* Indica che il video è cliccabile */
         }
 
         .video:hover {
@@ -126,6 +127,30 @@
             color: #555;
         }
 
+        /* Pop-up video */
+        .popup {
+            display: none; /* Inizialmente nascosto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111; /* Sfondo semi-trasparente */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Visibile sopra gli altri elementi */
+        }
+
+        .popup-content {
+            width: 70%; /* Larghezza del pop-up */
+            height: 70%;
+        }
+
+        .popup-content iframe {
+            width: 100%;
+            height: 100%; /* Altezza del video */
+        }
+
         /* Media Queries for responsiveness */
         @media (max-width: 600px) {
             .video {
@@ -154,6 +179,15 @@
     <div class="featured-video" id="featuredVideoContainer"></div>
     <div class="video-selection" id="videoContainer"></div>
 
+
+
+    <!-- Pop-up per il video -->
+    <div class="popup" id="videoPopup">
+        <div class="popup-content">
+            <iframe id="popupVideo" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <script>
         const API_KEY = 'AIzaSyA4ohP0Syu1VNyls-R3Y1cRmMGDdG5WK2o'; // Chiave API di YouTube
         const CHANNEL_ID = 'UCpw7_ePKCUF28v1JypU0RNw'; // ID del canale
@@ -164,10 +198,10 @@
             return data.items;
         }
 
-        function createFeaturedVideoElement(video) {
+        function createFeaturedVideoElement() {
             const videoDiv = document.createElement('div');
             videoDiv.className = 'featured-video';
-            const videoId = video.id.videoId;
+            const videoId = '2HVpg3lBjgU'; // ID del video in evidenza
 
             videoDiv.innerHTML = `
                 <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
@@ -182,11 +216,14 @@
 
             const videoId = video.id.videoId;
             videoDiv.innerHTML = `
-                <a href="/${video.snippet.title.replace(/\s+/g, '-').toLowerCase()}/index.html?home">
-                    <img src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
-                    <p>${video.snippet.title}</p>
-                </a>
+                <img src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
+                <p>${video.snippet.title}</p>
             `;
+
+            // Aggiunge l'evento di clic per aprire il pop-up
+            videoDiv.onclick = () => {
+                openPopup(videoId);
+            };
 
             return videoDiv;
         }
@@ -196,16 +233,27 @@
             const featuredVideoContainer = document.getElementById('featuredVideoContainer');
             const videoContainer = document.getElementById('videoContainer');
 
-            if (videos.length > 0) {
-                // Mostra il video più recente in alto
-                const featuredVideoElement = createFeaturedVideoElement(videos[0]);
-                featuredVideoContainer.appendChild(featuredVideoElement);
-            }
+            // Mostra il video in evidenza fisso
+            const featuredVideoElement = createFeaturedVideoElement();
+            featuredVideoContainer.appendChild(featuredVideoElement);
 
-            videos.forEach((video, index) => {
+            videos.forEach((video) => {
                 const videoElement = createVideoElement(video);
                 videoContainer.appendChild(videoElement);
             });
+        }
+
+        function openPopup(videoId) {
+            const videoPopup = document.getElementById('videoPopup');
+            const popupVideo = document.getElementById('popupVideo');
+            popupVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Attiva l'autoplay
+            videoPopup.style.display = 'flex'; // Mostra il pop-up
+
+            // Aggiungi un evento di clic per chiudere il pop-up quando si clicca sullo sfondo
+            videoPopup.onclick = () => {
+                popupVideo.src = ''; // Ferma il video
+                videoPopup.style.display = 'none'; // Nascondi il pop-up
+            };
         }
 
         displayVideos();

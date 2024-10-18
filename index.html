@@ -135,7 +135,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #111; /* Sfondo semi-trasparente */
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo semi-trasparente */
             justify-content: center;
             align-items: center;
             z-index: 1000; /* Visibile sopra gli altri elementi */
@@ -143,7 +143,7 @@
 
         .popup-content {
             width: 70%; /* Larghezza del pop-up */
-            height: 70%;
+            height: auto;
         }
 
         .popup-content iframe {
@@ -179,7 +179,12 @@
     <div class="featured-video" id="featuredVideoContainer"></div>
     <div class="video-selection" id="videoContainer"></div>
 
-
+    <div class="info-container">
+        <h2>Informazioni</h2>
+        <p>Benvenuti su Onlygabbyme TV! Qui troverete una selezione dei migliori video del nostro canale.</p>
+        <p>Seguiteci per rimanere aggiornati sulle ultime novità e contenuti esclusivi. Non dimenticate di iscrivervi!</p>
+        <p>Contattateci tramite i nostri link se avete domande o suggerimenti.</p>
+    </div>
 
     <!-- Pop-up per il video -->
     <div class="popup" id="videoPopup">

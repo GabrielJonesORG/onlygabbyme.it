@@ -106,10 +106,34 @@
             color: #555;
         }
 
+        /* Informazioni section */
+        .info-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-container h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .info-container p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #555;
+        }
+
         /* Media Queries for responsiveness */
         @media (max-width: 600px) {
             .video {
                 width: 150px; /* Larghezza minore su schermi piccoli */
+            }
+            
+            .auth-buttons {
+                display: none; /* Nascondi i bottoni su dispositivi mobili */
             }
         }
     </style>

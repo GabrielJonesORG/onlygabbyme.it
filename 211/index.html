@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onlygabbyme TV</title>
+    <link rel="stylesheet" href="https://GabrielJonesORG.github.io/assets/onlygabbyme-it/style.css">
+</head>
+<body>
+    <header>
+        <div class="gabby-logo">
+            Onlygabbyme TV
+            <span>🎥</span> <!-- Icona per rappresentare il video -->
+        </div>
+        <div class="auth-buttons">
+            <button onclick="window.location.href='https://gjdev.it'">gjdev.it</button>
+            <button onclick="window.location.href='https://www.onlygabbyme.it'">onlygabbyme.it</button>
+        </div>
+    </header>
+    <div class="featured-video" id="featuredVideoContainer"></div>
+    <div class="video-selection" id="videoContainer"></div>
+    
+    <div class="video-popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
+    <div class="video-popup" id="videoPopup">
+        <iframe id="popupVideo" src="" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyDmtuEqJYNjXgJ-xO0UEZcJf0UXHmKjB4o'; // Chiave API aggiornata
+        const PLAYLIST_ID = 'PLhIZPdPYMoO-bk33BGuZWlgLOWH6rJnfC'; // ID della tua playlist
+
+        async function fetchVideos() {
+            try {
+                const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?key=${API_KEY}&playlistId=${PLAYLIST_ID}&part=snippet&maxResults=10`);
+                const data = await response.json();
+                console.log(data); // Debug: vedere la struttura dei dati
+                return data.items;
+            } catch (error) {
+                console.error("Errore durante il fetch dei video:", error);
+                return [];
+            }
+        }
+
+        function createFeaturedVideoElement(videoId) {
+            const videoDiv = document.createElement('div');
+            videoDiv.className = 'featured-video';
+
+            videoDiv.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
+            `;
+
+            return videoDiv;
+        }
+
+        function createVideoElement(video) {
+            const videoDiv = document.createElement('div');
+            videoDiv.className = 'video';
+
+            const videoId = video.snippet.resourceId.videoId;
+            videoDiv.innerHTML = `
+                <img src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
+                <p>${video.snippet.title}</p>
+            `;
+            videoDiv.addEventListener('click', () => openPopup(videoId));
+
+            return videoDiv;
+        }
+
+        function openPopup(videoId) {
+            const popupOverlay = document.getElementById('popupOverlay');
+            const videoPopup = document.getElementById('videoPopup');
+            const popupVideo = document.getElementById('popupVideo');
+
+            popupVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Avvia automaticamente
+            popupOverlay.style.display = 'block';
+            videoPopup.style.display = 'block';
+        }
+
+        function closePopup() {
+            const popupOverlay = document.getElementById('popupOverlay');
+            const videoPopup = document.getElementById('videoPopup');
+            const popupVideo = document.getElementById('popupVideo');
+
+            popupVideo.src = ''; // Ferma il video
+            popupOverlay.style.display = 'none';
+            videoPopup.style.display = 'none';
+        }
+
+        async function displayVideos() {
+            const videos = await fetchVideos();
+            const featuredVideoContainer = document.getElementById('featuredVideoContainer');
+            const videoContainer = document.getElementById('videoContainer');
+
+            if (videos && videos.length > 0) {
+                // Mostra il primo video in evidenza
+                const featuredVideoElement = createFeaturedVideoElement(videos[0].snippet.resourceId.videoId);
+                featuredVideoContainer.appendChild(featuredVideoElement);
+
+                // Mostra gli altri video
+                videos.slice(1).forEach(video => {
+                    const videoElement = createVideoElement(video);
+                    videoContainer.appendChild(videoElement);
+                });
+            }
+        }
+
+        displayVideos();
+    </script>
+</body>
+</html>

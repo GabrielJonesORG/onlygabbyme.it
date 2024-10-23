@@ -8,7 +8,23 @@ header {
     background-color: #00BFFF; /* Azzurro */
     color: white;
     padding: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
 }
 
 .container {

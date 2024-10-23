@@ -17,10 +17,14 @@ header {
     font-size: 1.5em;
 }
 
+.nav-links {
+    display: flex;
+}
+
 .nav-links a {
     color: white;
     text-decoration: none;
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .nav-links a:hover {

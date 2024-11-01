@@ -9,8 +9,7 @@
 <body>
     <header>
         <div class="gabby-logo">
-            Onlygabbyme TV
-            <span>🎥</span> <!-- Icona per rappresentare il video -->
+            Onlygabbyme TV <span>🎥</span> <!-- Icona per rappresentare il video -->
         </div>
         <div class="auth-buttons">
             <button onclick="window.location.href='https://gjdev.it'">gjdev.it</button>
@@ -105,22 +104,22 @@
         }
 
         displayVideos();
-
-        <script>
-  if (window.innerWidth <= 768) { // Controlla se la larghezza dello schermo è di un dispositivo mobile
-    window.location.href = "/phone/"; // Reindirizza alla pagina /phone/
-  }
-</script>
-
     </script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PV5ZEXR594"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-PV5ZEXR594');
-</script>
+    <script>
+        if (window.innerWidth <= 768) { // Controlla se la larghezza dello schermo è di un dispositivo mobile
+            window.location.href = "/phone/"; // Reindirizza alla pagina /phone/
+        }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PV5ZEXR594"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PV5ZEXR594');
+    </script>
 </body>
 </html>
